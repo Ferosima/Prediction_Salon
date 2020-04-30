@@ -97,7 +97,7 @@ public class GameView extends View {
                     R.drawable.visitor_2), w / 4, h / 9 * 8, true));
             number = random.nextInt(2);
 
-            coord_text=new Coord ( h / 24+ h / 10,w / 40, w / 40+w/8,h / 24);
+            coord_text = new Coord(h / 24 + h / 10, w / 40, w / 40 + w / 8, h / 24);
 
             paint.setTextSize(50);
             paint.setColor(Color.WHITE);
@@ -136,16 +136,21 @@ public class GameView extends View {
                 if (clickOn) {
                     if (clickTrue) {
                         Log.d("click_true", "true");
-                        timer_game.onFinish();
-                        timer_game.cancel();
+                        //
                         clickTrue = false;
-                        coins+=random.nextInt(91)+10;
+                        coins += random.nextInt(91) + 10;
+                        game_timer_start = false;
+                        timer_game.cancel();
+                        timer_game.onFinish();
+                        //invalidate();
                         break;
                     }
                     if (clickFalse) {
+                        game_timer_start = false;
                         timer_game.onFinish();
                         timer_game.cancel();
                         clickFalse = false;
+                      //  invalidate();
                         break;
                     }
                 }
@@ -166,20 +171,19 @@ public class GameView extends View {
         return false;
     }
 
-    public void drawCoin(Canvas canvas)
-    {
+    public void drawCoin(Canvas canvas) {
         canvas.drawBitmap(coin_bitmap, w / 40, h / 24, paint);
-       // coord_text.CoordDraw(canvas,paint);
-        canvas.drawText(Integer.toString(coins), w / 40+w/8/3, coord_text.centerY+(int)(coord_text.h/4), paint);
-        Log.d("h_coord",coord_text.h+" "+coord_text.h/4);
+        // coord_text.CoordDraw(canvas,paint);
+        canvas.drawText(Integer.toString(coins), w / 40 + w / 8 / 3, coord_text.centerY + (int) (coord_text.h / 4), paint);
+        Log.d("h_coord", coord_text.h + " " + coord_text.h / 4);
     }
+
     public void Action(final Canvas canvas) {
         if (meeting) {
-            Log.d("timer_meeting", "true");
             drawCoin(canvas);
-            timer_meeting = new CountDownTimer(700, 1000) {
+            timer_meeting = new CountDownTimer(1000, 1000) {
                 public void onTick(long millisUntilFinished) {
-                    Log.d("timer_meeting", "check");
+                    Log.d("timer_meeting", "true " + millisUntilFinished);
                 }
 
                 public void onFinish() {
@@ -191,68 +195,69 @@ public class GameView extends View {
             }.start();
         }
         if (newMan) {
-           // canvas.drawBitmap(coin_bitmap, w / 40, h / 24, paint);
+            // canvas.drawBitmap(coin_bitmap, w / 40, h / 24, paint);
             canvas.drawBitmap(man.get(number), w / 4 * 3, h / 18, paint);
             drawCoin(canvas);
-           // coord_text.CoordDraw(canvas,paint);
-          //  canvas.drawText(Integer.toString(coins), coord_text.centerX, h / 24+ h / 10/2, paint);
+            // coord_text.CoordDraw(canvas,paint);
+            //  canvas.drawText(Integer.toString(coins), coord_text.centerX, h / 24+ h / 10/2, paint);
             Log.d("timer_newMan", "true");
-            timer_newMan = new CountDownTimer(700, 1000) {
+            if (initialization_1) {
+                h_coord = (int) (h / 3.5);
+                w_coord = (int) (w / 7);
+                elements[0][0] = BitmapFactory.decodeResource(getResources(), R.drawable.art_1_1);
+                elements[0][0] = Bitmap.createScaledBitmap(elements[0][0], (int) (w / div_w), (int) (h / div_h), false);
+
+                elements[0][1] = BitmapFactory.decodeResource(getResources(), R.drawable.art_1_2);
+                elements[0][1] = Bitmap.createScaledBitmap(elements[0][1], (int) (w / div_w), (int) (h / div_h), false);
+
+                elements[0][2] = BitmapFactory.decodeResource(getResources(), R.drawable.art_1_3);
+                elements[0][2] = Bitmap.createScaledBitmap(elements[0][2], (int) (w / div_w), (int) (h / div_h), false);
+
+                elements[0][3] = BitmapFactory.decodeResource(getResources(), R.drawable.art_1_4);
+                elements[0][3] = Bitmap.createScaledBitmap(elements[0][3], (int) (w / div_w), (int) (h / div_h), false);
+
+                elements[0][4] = BitmapFactory.decodeResource(getResources(), R.drawable.art_1_5);
+                elements[0][4] = Bitmap.createScaledBitmap(elements[0][4], (int) (w / div_w), (int) (h / div_h), false);
+
+                elements[0][5] = BitmapFactory.decodeResource(getResources(), R.drawable.art_1_6);
+                elements[0][5] = Bitmap.createScaledBitmap(elements[0][5], (int) (w / div_w), (int) (h / div_h), false);
+
+                elements[0][6] = BitmapFactory.decodeResource(getResources(), R.drawable.art_1_7);
+                elements[0][6] = Bitmap.createScaledBitmap(elements[0][6], (int) (w / div_w), (int) (h / div_h), false);
+
+                elements[0][7] = BitmapFactory.decodeResource(getResources(), R.drawable.art_1_8);
+                elements[0][7] = Bitmap.createScaledBitmap(elements[0][7], (int) (w / div_w), (int) (h / div_h), false);
+
+
+                elements[1][0] = BitmapFactory.decodeResource(getResources(), R.drawable.art_2_1);
+                elements[1][0] = Bitmap.createScaledBitmap(elements[1][0], (int) (w / div_w), (int) (h / div_h), false);
+
+                elements[1][1] = BitmapFactory.decodeResource(getResources(), R.drawable.art_2_2);
+                elements[1][1] = Bitmap.createScaledBitmap(elements[1][1], (int) (w / div_w), (int) (h / div_h), false);
+
+                elements[1][2] = BitmapFactory.decodeResource(getResources(), R.drawable.art_2_3);
+                elements[1][2] = Bitmap.createScaledBitmap(elements[1][2], (int) (w / div_w), (int) (h / div_h), false);
+
+                elements[1][3] = BitmapFactory.decodeResource(getResources(), R.drawable.art_2_4);
+                elements[1][3] = Bitmap.createScaledBitmap(elements[1][3], (int) (w / div_w), (int) (h / div_h), false);
+
+                elements[1][4] = BitmapFactory.decodeResource(getResources(), R.drawable.art_2_5);
+                elements[1][4] = Bitmap.createScaledBitmap(elements[1][4], (int) (w / div_w), (int) (h / div_h), false);
+
+                elements[1][5] = BitmapFactory.decodeResource(getResources(), R.drawable.art_2_6);
+                elements[1][5] = Bitmap.createScaledBitmap(elements[1][5], (int) (w / div_w), (int) (h / div_h), false);
+
+                elements[1][6] = BitmapFactory.decodeResource(getResources(), R.drawable.art_2_7);
+                elements[1][6] = Bitmap.createScaledBitmap(elements[1][6], (int) (w / div_w), (int) (h / div_h), false);
+
+                elements[1][7] = BitmapFactory.decodeResource(getResources(), R.drawable.art_2_8);
+                elements[1][7] = Bitmap.createScaledBitmap(elements[1][7], (int) (w / div_w), (int) (h / div_h), false);
+                initialization_1 = false;
+            }
+            timer_newMan = new CountDownTimer(1000, 1000) {
                 public void onTick(long millisUntilFinished) {
-                    Log.d("timer_new", "true");
-                    if (initialization_1) {
-                        h_coord = (int) (h / 3.5);
-                        w_coord = (int) (w / 7);
-                        elements[0][0] = BitmapFactory.decodeResource(getResources(), R.drawable.art_1_1);
-                        elements[0][0] = Bitmap.createScaledBitmap(elements[0][0], (int) (w / div_w), (int) (h / div_h), false);
+                    Log.d("timer_new", "true " + millisUntilFinished);
 
-                        elements[0][1] = BitmapFactory.decodeResource(getResources(), R.drawable.art_1_2);
-                        elements[0][1] = Bitmap.createScaledBitmap(elements[0][1], (int) (w / div_w), (int) (h / div_h), false);
-
-                        elements[0][2] = BitmapFactory.decodeResource(getResources(), R.drawable.art_1_3);
-                        elements[0][2] = Bitmap.createScaledBitmap(elements[0][2], (int) (w / div_w), (int) (h / div_h), false);
-
-                        elements[0][3] = BitmapFactory.decodeResource(getResources(), R.drawable.art_1_4);
-                        elements[0][3] = Bitmap.createScaledBitmap(elements[0][3], (int) (w / div_w), (int) (h / div_h), false);
-
-                        elements[0][4] = BitmapFactory.decodeResource(getResources(), R.drawable.art_1_5);
-                        elements[0][4] = Bitmap.createScaledBitmap(elements[0][4], (int) (w / div_w), (int) (h / div_h), false);
-
-                        elements[0][5] = BitmapFactory.decodeResource(getResources(), R.drawable.art_1_6);
-                        elements[0][5] = Bitmap.createScaledBitmap(elements[0][5], (int) (w / div_w), (int) (h / div_h), false);
-
-                        elements[0][6] = BitmapFactory.decodeResource(getResources(), R.drawable.art_1_7);
-                        elements[0][6] = Bitmap.createScaledBitmap(elements[0][6], (int) (w / div_w), (int) (h / div_h), false);
-
-                        elements[0][7] = BitmapFactory.decodeResource(getResources(), R.drawable.art_1_8);
-                        elements[0][7] = Bitmap.createScaledBitmap(elements[0][7], (int) (w / div_w), (int) (h / div_h), false);
-
-
-                        elements[1][0] = BitmapFactory.decodeResource(getResources(), R.drawable.art_2_1);
-                        elements[1][0] = Bitmap.createScaledBitmap(elements[1][0], (int) (w / div_w), (int) (h / div_h), false);
-
-                        elements[1][1] = BitmapFactory.decodeResource(getResources(), R.drawable.art_2_2);
-                        elements[1][1] = Bitmap.createScaledBitmap(elements[1][1], (int) (w / div_w), (int) (h / div_h), false);
-
-                        elements[1][2] = BitmapFactory.decodeResource(getResources(), R.drawable.art_2_3);
-                        elements[1][2] = Bitmap.createScaledBitmap(elements[1][2], (int) (w / div_w), (int) (h / div_h), false);
-
-                        elements[1][3] = BitmapFactory.decodeResource(getResources(), R.drawable.art_2_4);
-                        elements[1][3] = Bitmap.createScaledBitmap(elements[1][3], (int) (w / div_w), (int) (h / div_h), false);
-
-                        elements[1][4] = BitmapFactory.decodeResource(getResources(), R.drawable.art_2_5);
-                        elements[1][4] = Bitmap.createScaledBitmap(elements[1][4], (int) (w / div_w), (int) (h / div_h), false);
-
-                        elements[1][5] = BitmapFactory.decodeResource(getResources(), R.drawable.art_2_6);
-                        elements[1][5] = Bitmap.createScaledBitmap(elements[1][5], (int) (w / div_w), (int) (h / div_h), false);
-
-                        elements[1][6] = BitmapFactory.decodeResource(getResources(), R.drawable.art_2_7);
-                        elements[1][6] = Bitmap.createScaledBitmap(elements[1][6], (int) (w / div_w), (int) (h / div_h), false);
-
-                        elements[1][7] = BitmapFactory.decodeResource(getResources(), R.drawable.art_2_8);
-                        elements[1][7] = Bitmap.createScaledBitmap(elements[1][7], (int) (w / div_w), (int) (h / div_h), false);
-                        initialization_1 = false;
-                    }
                 }
 
                 public void onFinish() {
@@ -264,66 +269,67 @@ public class GameView extends View {
         }
         if (lookInBall) {
             canvas.drawBitmap(girl_look_ball, 0, 0, paint);
-           // canvas.drawBitmap(coin_bitmap, w / 40, h / 24, paint);
-           // coord_text.CoordDraw(canvas,paint);
+            // canvas.drawBitmap(coin_bitmap, w / 40, h / 24, paint);
+            // coord_text.CoordDraw(canvas,paint);
             canvas.drawBitmap(man.get(number), w / 4 * 3, h / 18, paint);
-          //  canvas.drawText(Integer.toString(coins), w / 40+canvas.getWidth()/8/3, h / 24+ h / 10/2, paint);
+            //  canvas.drawText(Integer.toString(coins), w / 40+canvas.getWidth()/8/3, h / 24+ h / 10/2, paint);
             drawCoin(canvas);
-            timer_look = new CountDownTimer(700, 1000) {
-                public void onTick(long millisUntilFinished) {
+            if (initialization_2) {
+                elements[2][0] = BitmapFactory.decodeResource(getResources(), R.drawable.art_3_1);
+                elements[2][0] = Bitmap.createScaledBitmap(elements[2][0], (int) (w / div_w), (int) (h / div_h), false);
 
-                    Log.d("timer_look", "true");
-                    if (initialization_2) {
-                        elements[2][0] = BitmapFactory.decodeResource(getResources(), R.drawable.art_3_1);
-                        elements[2][0] = Bitmap.createScaledBitmap(elements[2][0], (int) (w / div_w), (int) (h / div_h), false);
+                elements[2][1] = BitmapFactory.decodeResource(getResources(), R.drawable.art_3_2);
+                elements[2][1] = Bitmap.createScaledBitmap(elements[02][1], (int) (w / div_w), (int) (h / div_h), false);
 
-                        elements[2][1] = BitmapFactory.decodeResource(getResources(), R.drawable.art_3_2);
-                        elements[2][1] = Bitmap.createScaledBitmap(elements[02][1], (int) (w / div_w), (int) (h / div_h), false);
+                elements[2][2] = BitmapFactory.decodeResource(getResources(), R.drawable.art_3_3);
+                elements[2][2] = Bitmap.createScaledBitmap(elements[2][2], (int) (w / div_w), (int) (h / div_h), false);
 
-                        elements[2][2] = BitmapFactory.decodeResource(getResources(), R.drawable.art_3_3);
-                        elements[2][2] = Bitmap.createScaledBitmap(elements[2][2], (int) (w / div_w), (int) (h / div_h), false);
+                elements[2][3] = BitmapFactory.decodeResource(getResources(), R.drawable.art_3_4);
+                elements[2][3] = Bitmap.createScaledBitmap(elements[2][3], (int) (w / div_w), (int) (h / div_h), false);
 
-                        elements[2][3] = BitmapFactory.decodeResource(getResources(), R.drawable.art_3_4);
-                        elements[2][3] = Bitmap.createScaledBitmap(elements[2][3], (int) (w / div_w), (int) (h / div_h), false);
+                elements[2][4] = BitmapFactory.decodeResource(getResources(), R.drawable.art_3_5);
+                elements[2][4] = Bitmap.createScaledBitmap(elements[2][4], (int) (w / div_w), (int) (h / div_h), false);
 
-                        elements[2][4] = BitmapFactory.decodeResource(getResources(), R.drawable.art_3_5);
-                        elements[2][4] = Bitmap.createScaledBitmap(elements[2][4], (int) (w / div_w), (int) (h / div_h), false);
+                elements[2][5] = BitmapFactory.decodeResource(getResources(), R.drawable.art_3_6);
+                elements[2][5] = Bitmap.createScaledBitmap(elements[2][5], (int) (w / div_w), (int) (h / div_h), false);
 
-                        elements[2][5] = BitmapFactory.decodeResource(getResources(), R.drawable.art_3_6);
-                        elements[2][5] = Bitmap.createScaledBitmap(elements[2][5], (int) (w / div_w), (int) (h / div_h), false);
+                elements[2][6] = BitmapFactory.decodeResource(getResources(), R.drawable.art_3_7);
+                elements[2][6] = Bitmap.createScaledBitmap(elements[2][6], (int) (w / div_w), (int) (h / div_h), false);
 
-                        elements[2][6] = BitmapFactory.decodeResource(getResources(), R.drawable.art_3_7);
-                        elements[2][6] = Bitmap.createScaledBitmap(elements[2][6], (int) (w / div_w), (int) (h / div_h), false);
-
-                        elements[2][7] = BitmapFactory.decodeResource(getResources(), R.drawable.art_3_8);
-                        elements[2][7] = Bitmap.createScaledBitmap(elements[2][7], (int) (w / div_w), (int) (h / div_h), false);
+                elements[2][7] = BitmapFactory.decodeResource(getResources(), R.drawable.art_3_8);
+                elements[2][7] = Bitmap.createScaledBitmap(elements[2][7], (int) (w / div_w), (int) (h / div_h), false);
 
 //////////////////////////////////////number 3
-                        elements[3][0] = BitmapFactory.decodeResource(getResources(), R.drawable.art_4_1);
-                        elements[3][0] = Bitmap.createScaledBitmap(elements[3][0], (int) (w / div_w), (int) (h / div_h), false);
+                elements[3][0] = BitmapFactory.decodeResource(getResources(), R.drawable.art_4_1);
+                elements[3][0] = Bitmap.createScaledBitmap(elements[3][0], (int) (w / div_w), (int) (h / div_h), false);
 
-                        elements[3][1] = BitmapFactory.decodeResource(getResources(), R.drawable.art_4_2);
-                        elements[3][1] = Bitmap.createScaledBitmap(elements[3][1], (int) (w / div_w), (int) (h / div_h), false);
+                elements[3][1] = BitmapFactory.decodeResource(getResources(), R.drawable.art_4_2);
+                elements[3][1] = Bitmap.createScaledBitmap(elements[3][1], (int) (w / div_w), (int) (h / div_h), false);
 
-                        elements[3][2] = BitmapFactory.decodeResource(getResources(), R.drawable.art_4_3);
-                        elements[3][2] = Bitmap.createScaledBitmap(elements[3][2], (int) (w / div_w), (int) (h / div_h), false);
+                elements[3][2] = BitmapFactory.decodeResource(getResources(), R.drawable.art_4_3);
+                elements[3][2] = Bitmap.createScaledBitmap(elements[3][2], (int) (w / div_w), (int) (h / div_h), false);
 
-                        elements[3][3] = BitmapFactory.decodeResource(getResources(), R.drawable.art_4_4);
-                        elements[3][3] = Bitmap.createScaledBitmap(elements[3][3], (int) (w / div_w), (int) (h / div_h), false);
+                elements[3][3] = BitmapFactory.decodeResource(getResources(), R.drawable.art_4_4);
+                elements[3][3] = Bitmap.createScaledBitmap(elements[3][3], (int) (w / div_w), (int) (h / div_h), false);
 
-                        elements[3][4] = BitmapFactory.decodeResource(getResources(), R.drawable.art_4_5);
-                        elements[3][4] = Bitmap.createScaledBitmap(elements[3][4], (int) (w / div_w), (int) (h / div_h), false);
+                elements[3][4] = BitmapFactory.decodeResource(getResources(), R.drawable.art_4_5);
+                elements[3][4] = Bitmap.createScaledBitmap(elements[3][4], (int) (w / div_w), (int) (h / div_h), false);
 
-                        elements[3][5] = BitmapFactory.decodeResource(getResources(), R.drawable.art_4_6);
-                        elements[3][5] = Bitmap.createScaledBitmap(elements[3][5], (int) (w / div_w), (int) (h / div_h), false);
+                elements[3][5] = BitmapFactory.decodeResource(getResources(), R.drawable.art_4_6);
+                elements[3][5] = Bitmap.createScaledBitmap(elements[3][5], (int) (w / div_w), (int) (h / div_h), false);
 
-                        elements[3][6] = BitmapFactory.decodeResource(getResources(), R.drawable.art_4_7);
-                        elements[3][6] = Bitmap.createScaledBitmap(elements[3][6], (int) (w / div_w), (int) (h / div_h), false);
+                elements[3][6] = BitmapFactory.decodeResource(getResources(), R.drawable.art_4_7);
+                elements[3][6] = Bitmap.createScaledBitmap(elements[3][6], (int) (w / div_w), (int) (h / div_h), false);
 
-                        elements[3][7] = BitmapFactory.decodeResource(getResources(), R.drawable.art_4_8);
-                        elements[3][7] = Bitmap.createScaledBitmap(elements[3][7], (int) (w / div_w), (int) (h / div_h), false);
-                        initialization_2 = false;
-                    }
+                elements[3][7] = BitmapFactory.decodeResource(getResources(), R.drawable.art_4_8);
+                elements[3][7] = Bitmap.createScaledBitmap(elements[3][7], (int) (w / div_w), (int) (h / div_h), false);
+                initialization_2 = false;
+            }
+            timer_look = new CountDownTimer(1000, 1000) {
+                public void onTick(long millisUntilFinished) {
+
+                    Log.d("timer_look", "true " + millisUntilFinished);
+
                 }
 
                 public void onFinish() {
@@ -353,18 +359,20 @@ public class GameView extends View {
             canvas.drawBitmap(ball_background, 0, 0, paint);
 
             clickOn = true;
-
-            //leftisde
-            coord_elements[0] = new Coord((int) (h / 24 + h / div_h), (int) (w / 20 + w / div_w), (int) (w / 20 + w / div_w * 2), h / 24);
-            coord_elements[1] = new Coord((int) (h / 24 + h / div_h + (h / div_h / 2)), w / 40, (int) (w / 40 + w / div_w), (int) (h / 24 + (h / div_h / 2)));
-            coord_elements[2] = new Coord((int) h - (int) (h / 24 + (h / div_h / 2)), w / 40, (int) (w / 40 + w / div_w), (int) (h - (h / 24 + h / div_h + (h / div_h / 2))));
-            coord_elements[3] = new Coord(h - (h / 24), (int) (w / 20 + w / div_w), (int) (w / 20 + w / div_w * 2), h - (int) (h / 24 + h / 3.5));
-            //rightside
-            coord_elements[4] = new Coord((int) (h / 24 + h / div_h), w - (int) (w / 20 + w / div_w * 2), w - (int) (w / 20 + w / div_w), h / 24);
-            coord_elements[5] = new Coord((int) (h / 24 + h / div_h + (h / div_h / 2)), w - (int) (w / 40 + w / div_w), w - (w / 40), (int) (h / 24 + (h / div_h / 2)));
-            coord_elements[6] = new Coord((int) h - (int) (h / 24 + (h / div_h / 2)), w - (int) (w / 40 + w / div_w), w - (int) (w / 40), (int) (h - (h / 24 + h / div_h + (h / div_h / 2))));
-            coord_elements[7] = new Coord(h - (h / 24), w - (int) (w / 20 + w / div_w * 2), (int) (w - (w / 20 + w / div_w)), h - (int) (h / 24 + h / div_h));
+            if (initialization_coords) {
+                //leftisde
+                coord_elements[0] = new Coord((int) (h / 24 + h / div_h), (int) (w / 20 + w / div_w), (int) (w / 20 + w / div_w * 2), h / 24);
+                coord_elements[1] = new Coord((int) (h / 24 + h / div_h + (h / div_h / 2)), w / 40, (int) (w / 40 + w / div_w), (int) (h / 24 + (h / div_h / 2)));
+                coord_elements[2] = new Coord((int) h - (int) (h / 24 + (h / div_h / 2)), w / 40, (int) (w / 40 + w / div_w), (int) (h - (h / 24 + h / div_h + (h / div_h / 2))));
+                coord_elements[3] = new Coord(h - (h / 24), (int) (w / 20 + w / div_w), (int) (w / 20 + w / div_w * 2), h - (int) (h / 24 + h / 3.5));
+                //rightside
+                coord_elements[4] = new Coord((int) (h / 24 + h / div_h), w - (int) (w / 20 + w / div_w * 2), w - (int) (w / 20 + w / div_w), h / 24);
+                coord_elements[5] = new Coord((int) (h / 24 + h / div_h + (h / div_h / 2)), w - (int) (w / 40 + w / div_w), w - (w / 40), (int) (h / 24 + (h / div_h / 2)));
+                coord_elements[6] = new Coord((int) h - (int) (h / 24 + (h / div_h / 2)), w - (int) (w / 40 + w / div_w), w - (int) (w / 40), (int) (h - (h / 24 + h / div_h + (h / div_h / 2))));
+                coord_elements[7] = new Coord(h - (h / 24), w - (int) (w / 20 + w / div_w * 2), (int) (w - (w / 20 + w / div_w)), h - (int) (h / 24 + h / div_h));
 //
+                initialization_coords = false;
+            }
             //coord_elements[0].CoordDraw(canvas, paint);
 //            coord_elements[1].CoordDraw(canvas, paint);
 //            coord_elements[2].CoordDraw(canvas, paint);
@@ -373,6 +381,7 @@ public class GameView extends View {
 //            coord_elements[5].CoordDraw(canvas,paint);
 //            coord_elements[6].CoordDraw(canvas,paint);
 //            coord_elements[7].CoordDraw(canvas,paint);
+
             for (int i = 0; i < 8; i++) {
                 canvas.drawBitmap(elements[number_elements][i], coord_elements[i].left, coord_elements[i].top, paint);
                 //         coord_elements[i].CoordDraw(canvas,paint);
@@ -381,21 +390,22 @@ public class GameView extends View {
                 //   else
                 //        canvas.drawBitmap(elements[number_elements][i],coord_elements[i-number_true_element].left,coord_elements[i-number_true_element].top,paint);
             }
+
             canvas.drawBitmap(elements[number_elements][number_true_element], (int) (w / 2.0 - (w / div_w / 2)), (int) (h / 2.0 - (h / div_h / 2)), paint);
             Log.d("timer number", " " + number_true_element);
             timer_game = new CountDownTimer(timer, 1000) {
                 public void onTick(long millisUntilFinished) {
-                    Log.d("timer_game", "true");
-
+                    Log.d("timer_game", "true " + millisUntilFinished);
                 }
 
                 public void onFinish() {
+                    Log.d("cancel_game", "true");
                     game_timer_start = false;
                     meeting = true;
                     initialization_element = true;
                     clickOn = false;
+                    //timer_game.cancel();
                     invalidate();
-
                 }
             }.start();
         }
